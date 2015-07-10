@@ -54,3 +54,14 @@ h1 {
 .container h2 {
     color: #000000;
 }
+
+.comments {
+    height: 500px;
+    overflow: auto;
+}
+
+.no-resize {
+    resize: none;
+}
+
+

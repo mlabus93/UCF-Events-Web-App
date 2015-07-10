@@ -1,46 +1,28 @@
 var tableData = [];
 
+
+//var email, pass;
+
 // DOM READY
 $(document).ready(function() {
 
+    /*$('#btnSignIn').click(function() {
+        var email = $('#email').val();
+        var pass = $('#password').val();
+
+        $.post("/logon", {email:email,pass:pass}, function(data) {
+            if (data === 'done') {
+                window.location.href="/table";
+            }
+        });
+    });*/
+
+
 	// Populate table
-	populateTable();
+	//populateTable();
 
 	$('#btnSignIn').on('click', signIn);
-
-
-	// form sign in
-	$('form[name="signin"]').on("submit", function (e) {
-        // Find all <form>s with the name "register", and bind a "submit" event handler
-
-        // Find the <input /> elements with the name "username" and "password"
-        var username = $(this).find('input[name="email"]');
-        var password = $(this).find('input[name="password"]');
-        if ($.trim(username.val()) === "") {
-            // If its value is empty
-            e.preventDefault();    // Stop the form from submitting
-            $("#formAlert").slideDown(400);    // Show the Alert
-        }
-        if ($.trim(password.val()) === "") {
-        	// If value is empty
-        	e.preventDefault();  // Stop form from submitting
-        	$("#formAlert").slideDown(400);   // Show the alert
-        }
-        else {
-            e.preventDefault();    // Not needed, just for demonstration
-            $("#formAlert").slideUp(400, function () {    // Hide the Alert (if visible)
-                alert("Would be submitting form");    // Not needed, just for demonstration
-                username.val("");    // Not needed, just for demonstration
-            });
-        }
-    });
-
-    $(".alert").find(".close").on("click", function (e) {
-        // Find all elements with the "alert" class, get all descendant elements with the class "close", and bind a "click" event handler
-        e.stopPropagation();    // Don't allow the click to bubble up the DOM
-        e.preventDefault();    // Don't let any default functionality occur (in case it's a link)
-        $(this).closest(".alert").slideUp(400);    // Hide this specific Alert
-    });
+    $('#btnLogIn').on('click', logIn);
 
 });
 
@@ -77,14 +59,19 @@ function signIn() {
 
 	var errorCount = 0;
 
-	$('input').each(function(index, val) {
-		if ($(this).val() === '') {
-			errorCount++;
-		}
-	});
+	if ($('#email').val() === '' || $('#password').val() === '') {
+        errorCount++;
+    }
 
 	if (errorCount === 0) {
-		alert('Success');
+        var email = $('#email').val();
+        var pass = $('#password').val();
+
+        $.post("/logon", {email:email,pass:pass}, function(data) {
+            if (data === 'done') {
+                window.location.href="/table";
+            }
+        });
 	}
 
 	else {
@@ -92,6 +79,29 @@ function signIn() {
 	}
 }
 
+function logIn() {
+
+    var errorCount = 0;
+
+    if ($('#emailLogIn').val() === '' || $('#passwordLogIn').val() === '') {
+        errorCount++;
+    }
+
+    if (errorCount === 0) {
+        var email = $('#emailLogIn').val();
+        var pass = $('#passwordLogIn').val();
+
+        $.post("/logon", {email:email,pass:pass}, function(data) {
+            if (data === 'done') {
+                window.location.href="/table";
+            }
+        });
+    }
+
+    else {
+        alert('Error: invalid entry');
+    }
+}
 
 
 
