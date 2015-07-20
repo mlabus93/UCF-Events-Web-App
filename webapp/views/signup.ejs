@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>UCF Events App</title>
+    <title>University Events App</title>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -37,12 +37,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand navbar-custom" href="/">College Events</a>
+          <a class="navbar-brand navbar-custom" href="/">University Events</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-form navbar-right">
             <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
+              <input type="email" placeholder="Email" class="form-control">
             </div>
             <div class="form-group">
               <input type="password" placeholder="Password" class="form-control">
@@ -70,29 +70,18 @@
   		<!--</div>-->
   		<form name="register" class="form-horizontal">
   			<div class="form-group">
-    			<label for="inputName1">Name</label>
-    			<input type="text" class="form-control" id="inputName1" placeholder="Name" autofocus="">
-  			</div>
-  			<div class="form-group">
     			<label for="inputEmail1">Email address</label>
-    			<input type="email" class="form-control" id="inputEmail1" placeholder="Email">
+    			<input type="email" class="form-control" id="registerEmail" placeholder="Email">
   			</div>
-  			<div class="form-group">
-          <label for="inputUniversity1">University</label>
-            <select class="form-control">
-              <option>UCF</option>
-              <option>FSU</option>
-              <option>UF</option>
-            </select>
+        <div class="form-group">
+          <label for="inputPassword1">Password</label>
+          <input type="password" class="form-control" id="registerPassword" placeholder="Password">
         </div>
   			<div class="form-group">
-  				<label for="inputUsername1">Username</label>
-  				<input type="text" class="form-control" id="inputUsername1" placeholder="Username">
-  			</div>
-  			<div class="form-group">
-    			<label for="inputPassword1">Password</label>
-    			<input type="password" class="form-control" id="inputPassword1" placeholder="Password">
-  			</div>
+          <label for="inputUniversity1">University</label>
+            <select class="form-control" id="universitySelect">
+            </select>
+        </div>
   			<!--<div class="form-group">
   				<label for="inputAccess1">Access Level</label>
   				<select class="form-control">
@@ -102,7 +91,7 @@
   				</select>
   				<p class="help-block">Super Admin and Admin require approval.</p>
   			</div>-->
-  			<button type="submit" class="btn btn-warning btn-lg btn-block">Submit</button>
+  			<button type="button" class="btn btn-warning btn-lg btn-block" id="btnRegister">Submit</button>
   		</form>
 	</div>
 
@@ -125,6 +114,10 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="bootstrap.min.js"></script>
+
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrxZ6s2e_UEaxOFLb7yDPc748M288WGiY">
+    </script>
 
     <script src="global.js"></script>
 

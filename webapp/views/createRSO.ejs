@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>UCF Events App</title>
+    <title>University Events App</title>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -39,7 +39,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand navbar-custom" href="/">UCF Events</a>
+          <a class="navbar-brand navbar-custom" href="/">University Events</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <form class="navbar-form navbar-right"> 
@@ -68,31 +68,32 @@
         <!--</div>-->
         <form name="register" class="form-horizontal">
             <div class="form-group">
-                <label for="inputName1">RSO Name</label>
-                <input type="text" class="form-control" id="inputEventName1" placeholder="RSO Name" autofocus="">
+                <label for="rsoName">RSO Name</label>
+                <input type="text" class="form-control" id="rsoName" placeholder="RSO Name" autofocus="">
             </div>
             <!-- current users email populated here -->
             <div class="form-group">
-                <label for="inputEmail1">Your Email</label>
-                <input type="email" class="form-control" id="inputEmail1" placeholder="Your Email">
+                <label for="rsoAdminEmail">Your Email</label>
+                <input type="email" class="form-control" id="rsoAdminEmail" value=<%= currentUser %> disabled>
+                <p class="help-block">You will be an administrator for the RSO.</p>
             </div>
             <div class="form-group">
-                <label for="inputEmail2">Email 2</label>
-                <input type="email" class="form-control" id="inputEmail2" placeholder="Email 2">
+                <label for="rsoEmail2">Email 2</label>
+                <input type="email" class="form-control" id="rsoEmail2" placeholder="Email 2">
             </div>
             <div class="form-group">
-                <label for="inputEmail3">Email 3</label>
-                <input type="email" class="form-control" id="inputEmail3" placeholder="Email 3">
+                <label for="rsoEmail3">Email 3</label>
+                <input type="email" class="form-control" id="rsoEmail3" placeholder="Email 3">
             </div>
             <div class="form-group">
-                <label for="inputEmail4">Email 4</label>
-                <input type="email" class="form-control" id="inputEmail4" placeholder="Email 4">
+                <label for="rsoEmail4">Email 4</label>
+                <input type="email" class="form-control" id="rsoEmail4" placeholder="Email 4">
             </div>
             <div class="form-group">
-                <label for="inputEmail5">Email 5</label>
-                <input type="email" class="form-control" id="inputEmail5" placeholder="Email 5">
+                <label for="rsoEmail5">Email 5</label>
+                <input type="email" class="form-control" id="rsoEmail5" placeholder="Email 5">
             </div>
-            <button type="submit" class="btn btn-warning btn-lg btn-block">Submit</button>
+            <button type="button" class="btn btn-warning btn-lg btn-block" id="btnCreateRSO">Submit</button>
         </form>
     </div>
 
@@ -102,7 +103,7 @@
         <hr>
 
       <footer>
-        <p>© Company 2014</p>
+        <p>© University Events 2015</p>
       </footer>
 
     </div>

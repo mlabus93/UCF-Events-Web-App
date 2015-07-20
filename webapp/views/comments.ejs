@@ -26,10 +26,20 @@
     <link href="jumbotron.css" rel="stylesheet">
     <link href="ucftheme.css" rel="stylesheet">
 
+    <style type="text/css">
+      html, body, #map-location { height: 240px; margin: 0; margin-bottom: 0px; margin-right: 0px; margin-top: 0px;}
+    </style>
+    <style>
+    #target {
+        width: 345px;
+    }
+    </style>
+
   </head>
 
 
   <body>
+
 
     <nav class="navbar navbar-inverse navbar-fixed-top navbar-custom">
       <div class="container">
@@ -40,7 +50,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand navbar-custom" href="/">UCF Events</a>
+          <a class="navbar-brand navbar-custom" href="/">University Events</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-form navbar-right"> 
@@ -48,7 +58,7 @@
             <!--<a class="btn btn-success" href="/signup" role="button">Register</a>-->
             <!--<button type="submit" class="btn btn-success">Register</button>-->
           </form>
-          <p class="navbar-text navbar-right">Signed in as First Last</p>
+          <p class="navbar-text navbar-right">Signed in as <%= currentUser %></p>
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
@@ -58,27 +68,38 @@
     <div class="jumbotron">
       <div class="container">
         <div class="row">
-          <h1>&ltEvent Name&gt</h1>
-          <p>Post a comment.</p>
+          <div class="col-sm-6">
+            <h1 id="eventHeader"><%= eventName %></h1>
+            <!--<input type="hidden" value=<%= eventName %> id="eventHeader">-->
+            <p><%= location %></p>
+            <p>
+            <button type="button" class="btn btn-success btn-lg" id="btnJoinEvent">Join Event »</button>
+            <button type="button" class="btn btn-warning btn-lg" id="btnRemoveEvent">Remove Event »</button>
+            </p>
+          </div>
+          <div class="col-sm-6">
+            <div id="map-location"></div>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="container">
 
-      <textarea class="form-control no-resize" rows="3" placeholder="Type a comment..."></textarea>
+      <textarea class="form-control no-resize" id="commentText" rows="3" placeholder="Type a comment..."></textarea>
       <p></p>
-      <button class="btn btn-lg btn-success pull-right" type="submit">Post Comment</button>
+      <button type="button" class="btn btn-lg btn-success pull-right" id="btnComment">Post Comment</button>
 
       <div class="page-header">
         <h1>Comments</h1>
       </div>
         
-
-        <table class="table-no-bordered"
+      <div class="bootstrap-table">
+        <table id="commentsTable"
+               class="table-no-bordered"
                data-toggle="table"
                data-striped="false"
-               data-url="/ucfevents.json"
+               data-url="/currentEvent"
                data-search="true"
                data-search-align="left"
                data-pagination="true"
@@ -86,17 +107,24 @@
 
           <thead>
             <tr>
-              <th data-field="title">User</th>
-              <th data-field="description">Comment</th>
-              <th data-field="starts">Time</th>
+              <th data-field="comment_id" data-visible="false"></th>
+              <th data-field="email" data-sortable="true">User</th>
+              <th data-field="comment">Comment</th>
+              <th data-field="niceDate" data-sortable="true">Date</th>
             </tr>
           </thead>
         </table>
+      </div>
+
+      <input type="hidden" class="form-control" id="curLat1" value=<%= currentLatitude %> disabled>
+      <input type="hidden" class="form-control" id="curLng1" value=<%= currentLongitude %> disabled>
+      <div value=<%= currentLatitude %> id="curLat"></div>
+      <div value=<%= currentLongitude %> id="curLng"></div>
 
       <hr>
 
       <footer>
-        <p>© Company 2014</p>
+        <p>© University Events 2015</p>
       </footer>
     </div> <!-- /container -->
 
@@ -118,8 +146,13 @@
     <!-- Bootstrap table extension -->
     <script src="extensionsBS/bootstrap-table-mobile.js"></script>
 
-    <!-- AJAX calls -->
-    <!--<script src="global.js"></script>-->
 
+    <!-- Google Map JavaScript -->
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrxZ6s2e_UEaxOFLb7yDPc748M288WGiY">
+    </script>
+
+
+    <script src="global.js"></script>
 
   </body></html>

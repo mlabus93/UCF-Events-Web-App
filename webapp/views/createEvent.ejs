@@ -2,13 +2,13 @@
 <html lang="en"><head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>UCF Events App</title>
+    <title>University Events App</title>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -26,6 +26,17 @@
     <link href="jumbotron.css" rel="stylesheet">
     <link href="ucftheme.css" rel="stylesheet">
 
+
+
+    <style type="text/css">
+      html, body, #map-canvas { height: 300px; margin: 0; margin-bottom: 10px; margin-right: 0px;}
+    </style>
+    <style>
+    #target {
+        width: 345px;
+    }
+    </style>
+
   </head>
 
   <body>
@@ -39,7 +50,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand navbar-custom" href="/">UCF Events</a>
+          <a class="navbar-brand navbar-custom" href="/">University Events</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-form navbar-right"> 
@@ -52,49 +63,87 @@
 
     <div class="jumbotron">
       <div class="container">
-        <h1>Create Event</h1>
-        <p>Make a new event.</p>
+            <h1>Create Event</h1>
+            <p>Make a new event.</p>
       </div>
     </div>
 
 
     <div class="container">
-        <div class="page-header">
-            <!--<div class="text-center">-->
-            <h1>Add Event <small>fill in all fields</small></h1>
+        <h1>Add Event <small>fill in all fields</small></h1>
+        <hr>
+        <div class="row">
+        <form class="form-horizontal">
+            <h3>Pick a location</h3>
+            <p class="help-block ">Drag the marker or search for a location</p>
+        </form>
         </div>
-        <!--</div>-->
+        <div class="row">
+        <form class="form-horizontal">
+        <input class="controls" id="pac-input" type="text" placeholder="Search">
+        <div class="col-sm-6" id="map-canvas"><input class="controls" id="pac-input" type="text" placeholder="Search"></div>
+        <div class="col-sm-5 col-sm-offset-1">
+            <label for="inputLocation">Location Description</label>
+            <input type="text" class="form-control" id="inputLocation" placeholder="Location">
+            <p class="help-block">Ex: UCF Arena</p>
+        </div>
+        </form>
+        </div>
+        <hr>
         <form name="register" class="form-horizontal">
             <div class="form-group">
-                <label for="inputName1">Event Name</label>
-                <input type="text" class="form-control" id="inputEventName1" placeholder="Event Name" autofocus="">
+                <label for="inputEventName">Event Name</label>
+                <input type="text" class="form-control" id="inputEventName" placeholder="Event Name">
             </div>
             <div class="form-group">
-                <label for="inputEmail1">Event Type</label>
-                <input type="email" class="form-control" id="inputEmail1" placeholder="Email">
+                <label for="inputCategory">Category</label>
+                <input type="text" class="form-control" id="inputCategory" placeholder="Category">
             </div>
             <div class="form-group">
-                <label for="inputUniversity1">University</label>
-                <input type="text" class="form-control" id="inputUniversity1" placeholder="University">
+                <label for="inputStartDate">Start Date</label>
+                <input type="text" class="form-control" id="inputStartDate" placeholder="Start Date">
+                <p class="help-block">Format: MM/DD/YYYY</p>
             </div>
             <div class="form-group">
-                <label for="inputUsername1">Username</label>
-                <input type="text" class="form-control" id="inputUsername1" placeholder="Username">
+                <label for="inputStartTime">Start Time</label>
+                <input type="text" class="form-control" id="inputStartTime" placeholder="Start Time">
             </div>
+
             <div class="form-group">
-                <label for="inputPassword1">Password</label>
-                <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
+                <label>Weekly Event?</label>
+                <p></p>
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" name="weeklyEvent" id="radioYes" value="Yes">
+                        Yes
+                    </label>
+                </div>
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" name="weeklyEvent" id="radioNo" value="No" checked>
+                        No
+                    </label>
+                </div>
             </div>
+
             <div class="form-group">
-                <label for="inputAccess1">Access Level</label>
-                <select class="form-control">
-                    <option>Student</option>
-                    <option>Admin</option>
-                    <option>Super Admin</option>
+                <label for="eventVisibility">RSO</label>
+                <select class="form-control" id="rsoSelect">
                 </select>
-                <p class="help-block">Super Admin and Admin require approval.</p>
             </div>
-            <button type="submit" class="btn btn-warning btn-lg btn-block">Submit</button>
+            <div class="form-group">
+                <label for="eventVisibility">Event Visibility</label>
+                <select class="form-control" id="eventVisibility">
+                    <option>Public</option>
+                    <option>Private</option>
+                    <option>RSO</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control no-resize" id="description" rows="3" placeholder="Type a description..."></textarea>
+            </div>
+            <button type="button" class="btn btn-warning btn-lg btn-block" id="btnCreateEvent">Submit</button>
         </form>
     </div>
 
@@ -104,7 +153,7 @@
         <hr>
 
       <footer>
-        <p>© Company 2014</p>
+        <p>© University Events 2015</p>
       </footer>
 
     </div>
@@ -117,7 +166,14 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="bootstrap.min.js"></script>
 
+    <!-- Google Map JavaScript -->
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrxZ6s2e_UEaxOFLb7yDPc748M288WGiY">
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=false&libraries=places"></script>
+
     <script src="global.js"></script>
+
 
   </body></html>
 

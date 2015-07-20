@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>UCF Events App</title>
+    <title>University Events App</title>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -22,6 +22,25 @@
       <!-- Bootstrap table -->
     <link href="bootstrap-table.min.css" rel="stylesheet">
 
+    <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '119302398410008',
+            xfbml      : true,
+            version    : 'v2.4'
+          });
+        };
+
+        (function(d, s, id){
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+      </script>
+
+
     <!-- Custom styles for this template -->
     <link href="jumbotron.css" rel="stylesheet">
     <link href="ucftheme.css" rel="stylesheet">
@@ -29,6 +48,24 @@
   </head>
 
   <body>
+
+      <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '119302398410008',
+            xfbml      : true,
+            version    : 'v2.4'
+          });
+        };
+
+        (function(d, s, id){
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+      </script>
 
     <nav class="navbar navbar-inverse navbar-fixed-top navbar-custom">
       <div class="container">
@@ -39,7 +76,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand navbar-custom" href="/">UCF Events</a>
+          <a class="navbar-brand navbar-custom" href="/">University Events</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-form navbar-right"> 
@@ -54,56 +91,49 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <div class="row">
+
           <h1>Events</h1>
           <p>View events by University or RSO.</p>
-          <p>
-            <a class="btn btn-success btn-lg" href="/createEvent" role="button">Create Event »</a>
-            <a class="btn btn-warning btn-lg" href="/RSOlist" role="button">View RSO List »</a>
-          </p>
-        </div>
+
+            <div class="btn-group">
+            <a class="btn btn-success btn-lg" href="/createEvent" role="button" id="btnEventCreate">Create Event »</a>
+            </div>
+            <div class="btn-group">
+            <a class="btn btn-warning btn-lg" href="/rso" role="button">View RSO List »</a>
+            </div>
+            <hr>
+            <p class="help-block">Share to Facebook</p>
+            <div class="fb-share-button" data-href="http://8715e0aa.ngrok.io" data-layout="button" style="display:inline;"></div>
       </div>
     </div>
 
     <div class="container">
 
       <div class="page-header">
-        <h1>Events Table</h1>
+        <h1>Events Table<small> click an event to view details</small></h1>
       </div>
 
 
         
 
-
-        <table data-toggle="table"
+      <div class="bootstrap-table">
+        <table id="events"
+               data-toggle="table"
                data-striped="true"
-               data-url="/ucfevents.json"
+               data-url="/publicEvents"
                data-search="true"
                data-search-align="left"
                data-pagination="true"
                data-show-toggle="false">
 
           <div class="pull-right">
+            
+              <button type="button" class="btn btn-lg btn-success" id="btnJoinedEvents">Joined Events</button>
+              <button type="button" class="btn btn-lg btn-warning" id="pub">Public</button>
+              <button type="button" class="btn btn-lg btn-warning" id="pri">Private</button>
+              <button type="button" class="btn btn-lg btn-warning" id="r">RSO</button>
+              
 
-            <div class="btn-group">
-              <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" 
-              aria-haspopup="true" aria-expanded="false">University <span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><a href="#">UCF</a></li>
-                <li><a href="#">UF</a></li>
-                <li><a href="#">FSU</a></li>
-              </ul>
-            </div>
-
-            <div class="btn-group">
-              <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" 
-              aria-haspopup="true" aria-expanded="false">Event Type <span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><a href="#">Public</a></li>
-                <li><a href="#">Private</a></li>
-                <li><a href="#">RSO</a></li>
-              </ul>
-            </div>
 
             <p></p>
 
@@ -111,20 +141,27 @@
 
           <thead>
             <tr>
-              <th data-field="title">Event</th>
-              <th data-field="description">Description</th>
-              <th data-field="location">Location</th>
-              <th data-field="starts">Start Date</th>
-              <th data-field="ends">End Date</th>
-              <th data-field="category">Category</th>
+              <th data-field="event_id" data-visible="false">ID</th>
+              <th data-field="event_name" data-sortable="true">Event</th>
+              <th data-field="description" data-sortable="true">Description</th>
+              <th data-field="starttime" data-sortable="true">Start Date</th>
+              <th data-field="category" data-sortable="true">Category</th>
+              <th data-field="loc_name" data-sortable="true">Location</th>
+              <th data-field="uni_name" data-sortable="true">University</th>
+              <th data-field="rso_name" data-sortable="true">RSO</th>
+              <th data-field="email" data-sortable="true">Hosted By</th>
+              <th data-field="weekly_event" data-sortable="true">Weekly Event?</th>
+              <th data-field="latitude" data-visible="false">latitude</th>
+              <th data-field="longitude" data-visible="false">longitude</th>
             </tr>
           </thead>
         </table>
+      </div>
 
       <hr>
 
       <footer>
-        <p>© Company 2014</p>
+        <p>© University Events 2015</p>
       </footer>
     </div> <!-- /container -->
 
@@ -145,6 +182,8 @@
 
     <!-- Bootstrap table extension -->
     <script src="extensionsBS/bootstrap-table-mobile.js"></script>
+
+    <script src="bootstrap-table-en-US.js"></script>
 
     <!-- AJAX calls -->
     <script src="global.js"></script>

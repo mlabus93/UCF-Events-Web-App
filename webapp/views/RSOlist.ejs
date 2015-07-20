@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>UCF Events App</title>
+    <title>University Events App</title>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -40,7 +40,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand navbar-custom" href="/">UCF Events</a>
+          <a class="navbar-brand navbar-custom" href="/">University Events</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-form navbar-right"> 
@@ -55,13 +55,11 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <div class="row">
           <h1>RSO List</h1>
           <p>Join RSOs or request to create one.</p>
           <p>
             <a class="btn btn-success btn-lg" href="/createRSO" role="button">Create RSO »</a>
           </p>
-        </div>
       </div>
     </div>
 
@@ -71,29 +69,64 @@
         <h1>RSO Table</h1>
       </div>
         
-
-        <table data-toggle="table"
-               data-striped="true"
-               data-url="/ucfevents.json"
+      <div class="bootstrap-table">
+        <table id="rsoList" data-toggle="table"
+               data-url="/rsoList"
                data-search="true"
                data-search-align="left"
                data-pagination="true"
                data-show-toggle="false">
 
+        <div class="pull-right">  
+            <button type="button" class="btn btn-lg btn-warning" id="joinRSOs">Join Selected RSOs</button>
+          <p></p>
+        </div>
+
           <thead>
             <tr>
-              <th data-field="title">RSO</th>
-              <th data-field="description">University</th>
-              <th data-field="location">Owner</th>
-              <th>Join RSO?</th>
+              <th data-checkbox="true"></th>
+              <th data-field="rso_id" data-visible="false"></th>
+              <th data-field="rso_name" data-sortable="true">RSO</th>
+              <th data-field="email" data-sortable="true">Owner</th>
+              <th data-field="uni_name" data-sortable="true">University</th>
             </tr>
           </thead>
         </table>
+      </div>
+
+      <div class="page-header">
+        <h1>Your RSOs</h1>
+      </div>
+
+      <div class="bootstrap-table">
+        <table id="currentRsoList" data-toggle="table"
+               data-url="/currentRSO"
+               data-search="true"
+               data-search-align="left"
+               data-pagination="true"
+               data-show-toggle="false">
+
+        <div class="pull-right">  
+            <button type="button" class="btn btn-lg btn-success" id="btnRemoveRSOs">Remove Selected RSOs</button>
+          <p></p>
+        </div>
+
+          <thead>
+            <tr>
+              <th data-checkbox="true"></th>
+              <th data-field="rso_id" data-visible="false"></th>
+              <th data-field="rso_name" data-sortable="true">RSO</th>
+              <th data-field="email" data-sortable="true">Owner</th>
+              <th data-field="uni_name" data-sortable="true">University</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
 
       <hr>
 
       <footer>
-        <p>© Company 2014</p>
+        <p>© University Events 2015</p>
       </footer>
     </div> <!-- /container -->
 
@@ -116,7 +149,7 @@
     <script src="extensionsBS/bootstrap-table-mobile.js"></script>
 
     <!-- AJAX calls -->
-    <!--<script src="global.js"></script>-->
+    <script src="global.js"></script>
 
 
   </body></html>
