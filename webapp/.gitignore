@@ -1,0 +1,9 @@
+# Files to ignore
+users.json
+ucfevents.json
+.html
+
+# Folders to ignore
+bin/
+node_modules/
+fonts/
