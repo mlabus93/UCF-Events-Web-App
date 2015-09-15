@@ -658,8 +658,6 @@ function getRSOEvents(sess, req, res) {
 							"INNER JOIN rso r ON e.rso_id = r.rso_id ";
 		}
 
-		console.log(queryString);
-
 		connection.query(queryString, function(err, rows) {
 			connection.release();
 			if (!err) {
@@ -687,20 +685,22 @@ function getJoinedEvents(sess, req, res) {
 
 		console.log("Connected as: " + connection.threadId);
 
-		var queryString =	"SELECT	e.event_id, e.event_name, e.description, e.starttime, e.category, e.loc_name, e.latitude, e.longitude, " +
-							"e.weekly_event, us1.email, un.uni_name, r.rso_name " +
-							"FROM goes_to g " + 
-							"INNER JOIN user us ON g.student_no = us.student_no " +
+		var queryString =	"SELECT g.student_no, g.event_id, e.event_name, e.description, e.starttime, e.category, " +
+	   						"e.loc_name, un.uni_name, us.email, e.weekly_event, r.rso_name, e.latitude, e.longitude " +
+							"FROM goes_to g " +
 							"INNER JOIN event e ON g.event_id = e.event_id " +
+							"INNER JOIN user us ON e.admin_id = us.student_no " +
 							"INNER JOIN university un ON us.uni_id = un.uni_id " +
-							"LEFT JOIN rso r ON e.rso_id = r.rso_id " + 
-							"INNER JOIN user us1 ON r.admin_id = us1.student_no " +
+							"LEFT JOIN rso r ON e.rso_id = r.rso_id " +
 							"WHERE g.student_no = " + connection.escape(sess.userId);
 
 		connection.query(queryString, function(err, rows) {
 			connection.release();
 			if (!err) {
 				res.json(rows);
+			}
+			else {
+				console.log('Get Joined Events error. Query did not run');
 			}
 		});
 
